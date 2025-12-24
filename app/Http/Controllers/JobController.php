@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\User;
+use App\Mail\JobPosted;
+use App\Models\Employer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -43,13 +45,17 @@ class JobController extends Controller
             'title' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
+        $employer = Employer::where('user_id', Auth::id())->first();
 
         // dd(request()->all());
-        Job::create([
+        $job =Job::create([
             'title' => request('title'),
+            'employer_id' => $employer->id,
             'Salary' => request('salary'),
-            'employer_id' => 2
         ]);
+        // after publishing a job, send a confirmation mail
+        \Illuminate\Support\Facades\Mail::to($job->employer->user)->send(new JobPosted($job));
+
         return redirect('/jobs');
     }
 
