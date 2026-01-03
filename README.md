@@ -33,5 +33,4 @@ JobLinker is a learning project that's evolving into a full-featured job listing
 
 - **Jeffrey Way** and the Laracasts team for the incredible "30 Days to Learn Laravel" course
 - Laravel community for the amazing framework and resources
->>>>>>> f87dd028beedaf367930299abcd1cf2fec05f225
 
