@@ -54,7 +54,7 @@ class JobController extends Controller
             'Salary' => request('salary'),
         ]);
         // after publishing a job, send a confirmation mail
-        \Illuminate\Support\Facades\Mail::to($job->employer->user)->send(new JobPosted($job));
+        \Illuminate\Support\Facades\Mail::to($job->employer->user)->queue(new JobPosted($job));
 
         return redirect('/jobs');
     }
